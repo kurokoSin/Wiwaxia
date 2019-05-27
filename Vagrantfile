@@ -26,10 +26,11 @@ Vagrant.configure("2") do |config|
       ssh-keygen -N "" -t ed25519 -f ~/.ssh/id_ed25519
 
       # registry known_hosts
-      ssh-keyscan -H manager   >> ~/.ssh/known_hosts
+      #ssh-keyscan -H manager   >> ~/.ssh/known_hosts
 
       # registry authorized_keys
       cat ~/.ssh/id_ed25519.pub >> ~/.ssh/authorized_keys
+      cat ~/.ssh/id_ed25519.pub >> ~/.ssh/known_hosts
       # ssh-copy-id vagrant@manager
 
       # copy playbook
