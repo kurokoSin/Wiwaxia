@@ -1,0 +1,13 @@
+---
+- name: docker
+  yum: name="{{ item }}" state=present
+  with_items:
+    - yum-utils
+    - docker
+  notify:
+    - restart docker
+
+- name: add group
+  user: name=vagrant groups=dockerroot append=yes
+  tags: dockerhost
+

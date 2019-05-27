@@ -1,0 +1,24 @@
+---
+# - gather_facts: no
+# - name: Add user wekan
+#   user: 
+#     - name: wekan
+#     - password: 
+- name: wekan
+    - gather_facts: no
+    - docker_compose : 
+      - project_src : wekan
+      - image: mquandalle/wekan
+      - links: wekandb
+      - ports: 8081:80
+      - depends_on: wekandb
+    - environment:
+      - MONGO_URL: mongodb://wekandb/wekan
+      - ROOT_URL: http://localhost:8081
+
+- name: wekandb
+    - gather_facts: no
+    - docker_compose : 
+      - image: mongo
+      - volumes: /home/wekan/data:/data/db
+

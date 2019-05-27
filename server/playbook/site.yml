@@ -1,0 +1,9 @@
+---
+- hosts: localhost
+  become: yes
+  roles: 
+    - docker
+    - python
+    - docker-compose
+    - wekan
+    - nginx
