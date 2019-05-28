@@ -4,6 +4,7 @@
   with_items:
     - yum-utils
     - docker
+    - python-docker-py
   notify:
     - restart docker
 

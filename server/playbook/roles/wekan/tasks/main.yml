@@ -5,20 +5,18 @@
 #     - name: wekan
 #     - password: 
 - name: wekan
-    - gather_facts: no
-    - docker_compose : 
-      - project_src : wekan
+    - docker_compose: 
+      - project_src: wekan
       - image: mquandalle/wekan
       - links: wekandb
       - ports: 8081:80
       - depends_on: wekandb
     - environment:
       - MONGO_URL: mongodb://wekandb/wekan
-      - ROOT_URL: http://localhost:8081
+      - ROOT_URL: http://172.16.97.11:8081
 
 - name: wekandb
-    - gather_facts: no
-    - docker_compose : 
-      - image: mongo
+    - docker_compose: 
+      - image:   mongo
       - volumes: /home/wekan/data:/data/db
 
