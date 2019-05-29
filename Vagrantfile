@@ -45,7 +45,7 @@ Vagrant.configure("2") do |config|
 
     SHELL
 
-    manager.vm.provision "shell", privileged: false, inline: <<-SHELL
+    manager.vm.provision "shell", name: "Registory ssh-key", privileged: false, inline: <<-SHELL
       # registry ssh-key
       ssh-keygen -N "" -t ed25519 -f ~/.ssh/id_ed25519
 
@@ -56,6 +56,9 @@ Vagrant.configure("2") do |config|
       cat ~/.ssh/id_ed25519.pub >> ~/.ssh/authorized_keys
       # ssh-copy-id vagrant@manager
 
+    SHELL
+
+    manager.vm.provision "shell", name: "Install Ansible", privileged: false, inline: <<-SHELL
       # install Ansible stable-2.8
       git clone -b stable-2.8 https://github.com/ansible/ansible.git ~/ansible
       cd ~/ansible
@@ -66,7 +69,8 @@ Vagrant.configure("2") do |config|
       git pull --rebase
 
       echo manager > ~/ansible_hosts
-      export ANSIBLE_INVENTORY=~/ansible_hosts
+      echo "export ANSIBLE_INVENTORY=~/ansible_hosts" >> ~/.bashrc
+      echo "LANG=en_US . ~/ansible/hacking/env-setup" >> ~/.bashrc
   
       # copy playbook
       cp -pR /vagrant/playbook ~/
