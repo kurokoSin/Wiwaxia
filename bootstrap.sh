@@ -5,5 +5,5 @@ systemctl restart systemd-resolved.service
 
 sudo apt-get update
 sudo snap install wekan
-sudo snap set wekan root-url="http://localhost:8080"
+sudo snap set wekan root-url="http://172.16.97.101:8080"
 sudo systemctl restart snap.wekan.wekan
